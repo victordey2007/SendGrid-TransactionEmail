@@ -1,0 +1,36 @@
+var request = require("request");
+module.exports = async function (context, req) {
+  var options = { method: 'POST',
+  url: 'https://api.sendgrid.com/v3/mail/send',
+  headers: 
+   { 'content-type': 'application/json',
+     authorization: 'Bearer ffff' },
+  body: 
+   { "personalizations": [
+		{
+		  "to": [
+			{
+			  "email": req.body.ToEmail,
+			  "name": req.body.Name
+			}
+		  ],
+		  "dynamic_template_data": JSON.stringify(req.body.user)
+		}
+	  ],
+	  "from": {
+		"email": "jetBlueReservation@jetblue.com",
+		"name": "jetblue"
+	  },
+	  "template_id": "d-6abb2f92ba2b490594926dd8bcd5e8ba"},
+  json: true };
+
+request(options, function (error, response, body) {
+  if (error) throw new Error(error);
+
+    
+});
+context.res = {"body":"SUCCESS"};
+};
+
+
+
